@@ -16,9 +16,11 @@ import com.example.iss_application.model.PassTime;
 import com.example.iss_application.model.Response;
 import com.example.iss_application.viewmodel.IssViewModel;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView latTextView = findViewById(R.id.latitude_textview);
         TextView longTextView = findViewById(R.id.longitude_textview);
-        
+
 
 
         compositeDisposable.add(issViewModel.getLocation()
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             .subscribe(passes -> {
                                 {
                                     displayPassTimes(passes.getResponse());
-                                    Log.d("Date", getDate(passes.getResponse().get(0).getRisetime()  , "dd/MM/yyyy hh:mm:ss.SSS"));
+//                                    Log.d("Date", getDate(passes.getResponse().get(0).getRisetime()  , "MM/dd/yyyy hh:mm"));
 
                                 }
                             }, throwable -> {
@@ -96,14 +98,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    private String getDate(long milliSeconds, String dateFormat) {
-        SimpleDateFormat format = new SimpleDateFormat(dateFormat);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(milliSeconds);
-        return format.format(calendar.getTime());
-    }
+//
+//    private String getDate(long milliSeconds, String dateFormat) {
+//        DateFormat format = new SimpleDateFormat(dateFormat);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+//        calendar.setTimeInMillis(milliSeconds * 1000);
+//        return format.format(calendar.getTime());
+//    }
 
 
 }

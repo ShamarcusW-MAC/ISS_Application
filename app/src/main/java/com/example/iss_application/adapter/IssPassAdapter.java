@@ -13,7 +13,11 @@ import com.example.iss_application.R;
 import com.example.iss_application.model.PassTime;
 import com.example.iss_application.model.Response;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassViewHolder>{
 
@@ -39,8 +43,9 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
     @Override
     public void onBindViewHolder(@NonNull PassViewHolder holder, int position) {
 
+
         holder.durationTextView.setText(passes.get(position).getDuration().toString());
-        holder.riseTimeTextView.setText(passes.get(position).getRisetime().toString());
+        holder.riseTimeTextView.setText(getDate(passes.get(position).getRisetime(), "MM/dd/yyyy hh:mm"));
 
 
 
@@ -66,6 +71,16 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
             riseTimeTextView = view.findViewById(R.id.risetime_textview);
         }
 
+    }
+
+
+    private String getDate(long milliSeconds, String dateFormat) {
+        DateFormat format = new SimpleDateFormat(dateFormat);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+        calendar.setTimeInMillis(milliSeconds * 1000);
+        return format.format(calendar.getTime());
     }
 
 }
