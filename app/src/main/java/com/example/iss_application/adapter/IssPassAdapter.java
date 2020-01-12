@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.iss_application.R;
-import com.example.iss_application.model.PassTime;
 import com.example.iss_application.model.Response;
 
 import java.text.DateFormat;
@@ -44,8 +41,8 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
     public void onBindViewHolder(@NonNull PassViewHolder holder, int position) {
 
 
-        holder.durationTextView.setText(passes.get(position).getDuration().toString());
-        holder.riseTimeTextView.setText(getDate(passes.get(position).getRisetime(), "MM/dd/yyyy hh:mm"));
+        holder.durationTextView.setText("Duration: " + passes.get(position).getDuration().toString());
+        holder.riseTimeTextView.setText("RiseTime: " + getDate(passes.get(position).getRisetime(), "MM/dd/yyyy hh:mm aa"));
 
 
 

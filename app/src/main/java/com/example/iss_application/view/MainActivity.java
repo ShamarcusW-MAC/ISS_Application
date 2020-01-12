@@ -4,23 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.iss_application.R;
 import com.example.iss_application.adapter.IssPassAdapter;
-import com.example.iss_application.model.PassTime;
 import com.example.iss_application.model.Response;
 import com.example.iss_application.viewmodel.IssViewModel;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -47,14 +40,11 @@ public class MainActivity extends AppCompatActivity {
         TextView longTextView = findViewById(R.id.longitude_textview);
 
 
-
         compositeDisposable.add(issViewModel.getLocation()
             .subscribe(location -> {
                 {
                     latTextView.setText("Latitude: " + location.getIssPosition().getLatitude());
                     longTextView.setText("Longitude: " + location.getIssPosition().getLongitude());
-//                    Log.d("TAG_Latitude", location.getIssPosition().getLatitude());
-//                    Log.d("TAG_Longitude", location.getIssPosition().getLongitude());
                     Log.d("TAG_Latitude", latTextView.getText().toString());
                     Log.d("TAG_Longitude", longTextView.getText().toString());
                     Toast.makeText(this, "Almost works", Toast.LENGTH_SHORT);
@@ -62,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                             .subscribe(passes -> {
                                 {
                                     displayPassTimes(passes.getResponse());
-//                                    Log.d("Date", getDate(passes.getResponse().get(0).getRisetime()  , "MM/dd/yyyy hh:mm"));
 
                                 }
                             }, throwable -> {
@@ -83,6 +72,41 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_recyclerview);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                compositeDisposable.add(issViewModel.getLocation()
+                        .subscribe(location -> {
+                            {
+                                latTextView.setText("Latitude: " + location.getIssPosition().getLatitude());
+                                longTextView.setText("Longitude: " + location.getIssPosition().getLongitude());
+                                Log.d("TAG_Latitude", latTextView.getText().toString());
+                                Log.d("TAG_Longitude", longTextView.getText().toString());
+                                compositeDisposable.add(issViewModel.getPassTime(location.getIssPosition().getLatitude(), location.getIssPosition().getLongitude())
+                                                .subscribe(passes -> {
+                                                    {
+                                                        displayPassTimes(passes.getResponse());
+                                                        swipeRefreshLayout.setRefreshing(false);
+
+                                                    }
+                                                }, throwable -> {
+                                                    Log.d("TAG_ERROR2", throwable.getMessage());
+                                                })
+                                );
+
+
+                            }
+
+                        }, throwable -> {
+                            Log.d("TAG_ERROR", throwable.getMessage());
+                        }));
+
+            }
+        });
+
     }
 
     private void displayPassTimes(List<Response> passes)
@@ -95,18 +119,6 @@ public class MainActivity extends AppCompatActivity {
         issPassAdapter.notifyDataSetChanged();
 
     }
-
-
-
-//
-//    private String getDate(long milliSeconds, String dateFormat) {
-//        DateFormat format = new SimpleDateFormat(dateFormat);
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
-//        calendar.setTimeInMillis(milliSeconds * 1000);
-//        return format.format(calendar.getTime());
-//    }
 
 
 }
