@@ -76,7 +76,7 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
             binding.setResponse(response);
             durationTextView = itemView.findViewById(R.id.duration_textview);
             riseTimeTextView = itemView.findViewById(R.id.risetime_textview);
-            durationTextView.setText("Duration: " + response.getDuration());
+            durationTextView.setText("Duration: " + response.getDuration() + " seconds");
             riseTimeTextView.setText("RiseTime: " + getDate(response.getRisetime(), "MM/dd/yyyy hh:mm aa"));
             binding.executePendingBindings();
         }

@@ -21,10 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private IssViewModel issViewModel;
-
     private ActivityMainBinding activityMainBinding;
-
-
     RecyclerView recyclerView;
     IssPassAdapter issPassAdapter;
     TextView latTextView;
@@ -34,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
         issViewModel = ViewModelProviders.of(this)
                 .get(IssViewModel.class);
-
         activityMainBinding.setViewModel(issViewModel);
 
+        //Location of ISS is obtained from the api call.
         activityMainBinding.getViewModel().makeCall();
+
+        //The station's location is updated once the user has refreshed the view
         activityMainBinding.getViewModel().locationData.observe(this, new Observer<Location>() {
             @Override
             public void onChanged(Location location) {
@@ -49,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //Each pass time is acquired using the location of the ISS (latitude & longitude
         activityMainBinding.getViewModel().passTime.observe(this, new Observer<PassTime>() {
             @Override
             public void onChanged(PassTime passTime) {
@@ -57,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //Once the user swipes down on the recycler view, the location data is updated, and the
+        //recycler view is refreshed with the updated pass times.
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_recyclerview);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //Adapter is initialized and recycler view is displayed with the pass times.
     private void displayPassTimes(List<Response> passes)
     {
 
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //Method to update the views displaying the location of the ISS.
     private void updateLocation(Location location) {
         latTextView = findViewById(R.id.latitude_textview);
         longTextView = findViewById(R.id.longitude_textview);
