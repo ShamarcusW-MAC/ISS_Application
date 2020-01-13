@@ -2,14 +2,13 @@ package com.example.iss_application.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.iss_application.R;
+import com.example.iss_application.databinding.PassItemLayoutBinding;
 import com.example.iss_application.model.Response;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,19 +29,19 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
     @NonNull
     @Override
     public PassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pass_item_layout, parent, false);
 
-        PassViewHolder pvh = new PassViewHolder(view);
-        return pvh;
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        PassItemLayoutBinding binding = PassItemLayoutBinding.inflate(layoutInflater, parent, false);
+        return new PassViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PassViewHolder holder, int position) {
 
 
-        holder.durationTextView.setText("Duration: " + passes.get(position).getDuration().toString());
-        holder.riseTimeTextView.setText("RiseTime: " + getDate(passes.get(position).getRisetime(), "MM/dd/yyyy hh:mm aa"));
+        Response response = passes.get(position);
+        holder.bind(response);
+
 
 
 
@@ -51,7 +50,11 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
     @Override
     public int getItemCount() {
 
-        return passes.size();
+        if (passes != null) {
+            return passes.size();
+        } else {
+            return 0;
+        }
 
     }
 
@@ -60,12 +63,22 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
 
         public TextView durationTextView;
         public TextView riseTimeTextView;
+        PassItemLayoutBinding binding;
 
-        public PassViewHolder(View view)
+        public PassViewHolder(PassItemLayoutBinding binding)
         {
-            super(view);
-            durationTextView = view.findViewById(R.id.duration_textview);
-            riseTimeTextView = view.findViewById(R.id.risetime_textview);
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(Response response)
+        {
+            binding.setResponse(response);
+            durationTextView = itemView.findViewById(R.id.duration_textview);
+            riseTimeTextView = itemView.findViewById(R.id.risetime_textview);
+            durationTextView.setText("Duration: " + response.getDuration());
+            riseTimeTextView.setText("RiseTime: " + getDate(response.getRisetime(), "MM/dd/yyyy hh:mm aa"));
+            binding.executePendingBindings();
         }
 
     }

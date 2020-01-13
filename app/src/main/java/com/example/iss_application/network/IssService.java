@@ -16,5 +16,4 @@ public interface IssService {
     Observable<PassTime> getPassTime(@Query("lat") String lat,
                                      @Query("lon") String lon);
 
-
 }

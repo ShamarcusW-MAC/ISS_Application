@@ -13,7 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class IssFactory {
 
     String BASE_URL = "http://api.open-notify.org";
-    //http://api.open-notify.org/iss-pass.json?lat=20.0&lon=-110.0
 
     public IssService issService = createService(retrofitInstance());
 

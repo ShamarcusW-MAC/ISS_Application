@@ -1,67 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.MainActivity"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBlack"
-    tools:context=".view.MainActivity">
+    >
 
-    <TextView
-        android:id="@+id/title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen32"
-        android:text="@string/app_name"
-        android:textSize="@dimen/title_size"
-        android:textColor="@color/colorBlue"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/latitude_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen8"
-        android:layout_marginLeft="@dimen/dimen16"
-        android:textSize="@dimen/info_size"
-        android:textColor="@color/colorBlue"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/title_textview"
-        app:layout_constraintLeft_toLeftOf="parent"
-      />
+        <variable
+            name="issPosition"
+            type="com.example.iss_application.model.IssPosition" />
 
-    <TextView
-        android:id="@+id/longitude_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen16"
-        android:layout_marginTop="@dimen/dimen8"
-        android:textSize="@dimen/info_size"
-        android:textColor="@color/colorBlue"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/latitude_textview" />
+        <variable
+            name="viewModel"
+            type="com.example.iss_application.viewmodel.IssViewModel" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_recyclerview"
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/dimen24"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/longitude_textview"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack">
 
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen32"
+            android:text="@string/app_name"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/colorBlue"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/passtime_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <TextView
+            android:id="@+id/latitude_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen8"
+            android:layout_marginLeft="@dimen/dimen16"
+            android:textSize="@dimen/info_size"
+            android:textColor="@color/colorBlue"
+            android:textStyle="bold"
+            android:text="@{issPosition.latitude}"
+            app:layout_constraintTop_toBottomOf="@id/title_textview"
+            app:layout_constraintLeft_toLeftOf="parent"
             />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <TextView
+            android:id="@+id/longitude_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen16"
+            android:layout_marginTop="@dimen/dimen8"
+            android:textSize="@dimen/info_size"
+            android:textColor="@color/colorBlue"
+            android:textStyle="bold"
+            android:text="@{issPosition.longitude}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/latitude_textview" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/longitude_textview"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/passtime_recyclerview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
