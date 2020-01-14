@@ -27,6 +27,16 @@ public class PassTimeTest {
     @Rule
     public final ActivityScenarioRule<MainActivity> main = new ActivityScenarioRule<>(MainActivity.class);
 
+
+    @Test
+    public void testLocationDisplay() {
+//        SystemClock.sleep(1000);
+        onView(ViewMatchers.withId(R.id.latitude_textview)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.longitude_textview)).check(matches(isDisplayed()));
+
+
+    }
+
     @Test
     public void testLaunch(){
         onView(ViewMatchers.withId(R.id.passtime_recyclerview))
