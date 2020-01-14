@@ -37,9 +37,9 @@ public class ExampleUnitTest {
         assertEquals("01/13/2020", format.format(calendar.getTime()));
 
     }
-
-//    public void testViewModel(){
-//        IssViewModel vm = new IssViewModel();
-//        vm.
-//    }
+    @Test
+    public void testViewModel(){
+        IssViewModel vm = new IssViewModel();
+        vm.makeCall();
+    }
 }

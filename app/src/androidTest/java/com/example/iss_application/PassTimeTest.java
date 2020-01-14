@@ -30,11 +30,8 @@ public class PassTimeTest {
 
     @Test
     public void testLocationDisplay() {
-//        SystemClock.sleep(1000);
         onView(ViewMatchers.withId(R.id.latitude_textview)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.longitude_textview)).check(matches(isDisplayed()));
-
-
     }
 
     @Test
