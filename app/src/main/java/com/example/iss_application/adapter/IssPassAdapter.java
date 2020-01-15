@@ -47,6 +47,7 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
 
     }
 
+
     @Override
     public int getItemCount() {
 
@@ -84,6 +85,7 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
     }
 
 
+    //Method to convert time in milliseconds to date time
     private String getDate(long milliSeconds, String dateFormat) {
         DateFormat format = new SimpleDateFormat(dateFormat);
 

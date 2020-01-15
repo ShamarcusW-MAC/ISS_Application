@@ -1,9 +1,5 @@
 package com.example.iss_application;
 
-import androidx.lifecycle.ViewModel;
-
-import com.example.iss_application.viewmodel.IssViewModel;
-
 import org.junit.Test;
 
 import java.text.DateFormat;
@@ -19,11 +15,6 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
-
 
     @Test
     public void getDate() {
@@ -36,10 +27,5 @@ public class ExampleUnitTest {
 
         assertEquals("01/13/2020", format.format(calendar.getTime()));
 
-    }
-    @Test
-    public void testViewModel(){
-        IssViewModel vm = new IssViewModel();
-        vm.makeCall();
     }
 }

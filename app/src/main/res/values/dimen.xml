@@ -6,8 +6,6 @@
     <dimen name="dimen20">20dp</dimen>
     <dimen name="dimen24">24dp</dimen>
     <dimen name="dimen32">32dp</dimen>
-
-
     <dimen name="title_size">32sp</dimen>
     <dimen name="info_size">24sp</dimen>
 
