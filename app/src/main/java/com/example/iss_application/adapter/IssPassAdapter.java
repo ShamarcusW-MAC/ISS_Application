@@ -35,19 +35,16 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
         return new PassViewHolder(binding);
     }
 
+
+    //Binds the data with the view
     @Override
     public void onBindViewHolder(@NonNull PassViewHolder holder, int position) {
-
-
         Response response = passes.get(position);
         holder.bind(response);
-
-
-
-
     }
 
 
+    //Returns the number of items in the list
     @Override
     public int getItemCount() {
 
@@ -59,7 +56,7 @@ public class IssPassAdapter extends RecyclerView.Adapter<IssPassAdapter.PassView
 
     }
 
-
+    //All data is being set to the views
     class PassViewHolder extends RecyclerView.ViewHolder {
 
         public TextView durationTextView;
