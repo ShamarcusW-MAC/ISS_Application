@@ -40,8 +40,11 @@ public class PassTimeTest {
 
     @Test
     public void testRecyclerRefresh(){
-        SystemClock.sleep(5000);
+        SystemClock.sleep(3000);
         onView(ViewMatchers.withId(R.id.swipe_recyclerview)).perform(swipeDown());
+        SystemClock.sleep(3000);
+        onView(ViewMatchers.withId(R.id.swipe_recyclerview)).perform(swipeDown());
+        SystemClock.sleep(3000);
     }
 
 }
